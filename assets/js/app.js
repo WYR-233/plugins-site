@@ -77,6 +77,7 @@
         ${p.requires ? `<p class="plugin-note">运行要求：${esc(p.requires)}</p>` : ''}
       </details>
       <div class="plugin-links">
+        ${p.website ? `<a class="btn btn-primary btn-sm" href="${esc(p.website)}" target="_blank" rel="noopener">官网 · 插件介绍页</a>` : ''}
         <a class="btn btn-primary btn-sm" href="${esc(p.release)}" target="_blank" rel="noopener"><img class="btn-ico" src="assets/img/icon_github.svg" alt=""> Release 下载</a>
         <a class="btn btn-ghost btn-sm" href="${esc(p.repo)}" target="_blank" rel="noopener">源码仓库</a>
         <a class="btn btn-ghost btn-sm" href="${esc(p.tarball)}" target="_blank" rel="noopener">预构建包 .tgz</a>
