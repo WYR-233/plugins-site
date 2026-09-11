@@ -20,6 +20,7 @@ unzip -oq /tmp/plugins-site.zip
 systemctl reload nginx
 echo "deployed: $(date '+%F %T')"
 curl -s -o /dev/null -w "https=%{http_code}\n" -m 15 https://plugins.wyr233.com/
+echo "entries-in-json: $(grep -c '\"id\":' data/plugins.json || true)"
 '@
 $b64 = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($remote))
 ssh -o StrictHostKeyChecking=no $server "echo $b64 | base64 -d | bash"
