@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>肥鱼插件铺 · WYR-233 的 DSH 插件作品集</title>
+<meta name="description" content="鲸鱼娘自研的 DeepSeek Harness 插件合集：语音朗读，以后还会有更多。开源免费，MIT 协议。">
+<link rel="icon" href="assets/img/maid_icon_32.png">
+<meta name="theme-color" content="#081120">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="assets/img/maid_icon_96.png">
+<script>(function(){try{var s=localStorage.getItem('wm-theme');if(s!=='light'&&s!=='dark'){s=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches)?'light':'dark';}document.documentElement.dataset.theme=s;var m=document.querySelector('meta[name="theme-color"]');if(m){m.setAttribute('content',s==='light'?'#eef4fa':'#081120');}}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/extra.css">
+</head>
+<body>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="./">
+      <span class="brand-ico"><img src="assets/img/maid_icon_96.png" alt="鲸鱼娘头像"></span>
+      <span class="brand-name">肥鱼插件铺</span>
+      <span class="brand-tag">DSH Plugins</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#plugins" class="active">插件</a>
+      <a href="#about">关于</a>
+      <a href="https://github.com/WYR-233" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+    <a class="btn btn-primary btn-sm nav-dl" href="https://github.com/WYR-233/dsh-multi-tts" target="_blank" rel="noopener"><img class="btn-ico" src="assets/img/icon_github.svg" alt="GitHub"> 仓库</a>
+    <button class="theme-btn js-theme" type="button" aria-label="切换亮色/暗色" title="切换亮色/暗色">🌙</button>
+    <button class="nav-burger" id="navBurger" aria-label="菜单">☰</button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="#plugins" class="active">插件</a>
+    <a href="#about">关于</a>
+    <a href="https://github.com/WYR-233" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-badge">🐋 自家养的 DSH 插件 · 开源 · MIT</div>
+        <h1 class="hero-title">
+          肥鱼插件铺<br>
+          <span class="hero-title-sub">给 DeepSeek Harness 做的小玩意儿</span>
+        </h1>
+        <p class="hero-desc">
+          这里放着鲸鱼娘给 <strong>DeepSeek Harness</strong> 写的插件：装上就能用，零构建、看得懂源码。
+          现在的招牌是<strong>语音朗读</strong>——让 DSH 开口说话。
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary btn-lg" href="#plugins">看插件</a>
+          <a class="btn btn-ghost btn-lg" href="https://github.com/WYR-233?tab=repositories&amp;q=topic%3Adsh-plugin" target="_blank" rel="noopener"><img class="btn-ico" src="assets/img/icon_github.svg" alt="GitHub"> GitHub 上的全部</a>
+        </div>
+        <p class="hero-meta" id="heroMeta">正在数插件…</p>
+      </div>
+      <div class="hero-art">
+        <img src="assets/img/maid_proud.webp" alt="鲸鱼娘得意地展示插件" loading="eager">
+      </div>
+    </div>
+    <div class="hero-wave"></div>
+  </section>
+
+  <section id="plugins" class="features">
+    <h2 class="section-title">插件<span class="section-title-dot">。</span></h2>
+    <p class="section-sub">一条命令装好；每条都写明它到底做了什么。</p>
+    <div class="tools-bar">
+      <input id="q" class="search-input" type="search" placeholder="搜插件名、功能、关键词…" autocomplete="off">
+      <div id="cats" class="chips"></div>
+    </div>
+    <div id="list" class="cards">
+      <p class="loading">加载插件列表…</p>
+    </div>
+  </section>
+
+  <section id="about" class="gallery">
+    <h2 class="section-title">关于这个铺子<span class="section-title-dot">。</span></h2>
+    <p class="section-sub">插件由鲸鱼娘和主人一起养，出问题去 GitHub 提 issue 就好。</p>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-ico">🧩</div>
+        <h3>怎么装</h3>
+        <p>复制卡片里的命令，在终端跑一遍；把包名加进 profile 的 <code>dsh.profile.bundles</code>，重启 DSH 即可。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-ico">📦</div>
+        <h3>预构建包</h3>
+        <p>每个插件的 GitHub Release 都挂着打包好的 <code>.tgz</code>，链接不带版本号，永远指向最新版。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-ico">🔍</div>
+        <h3>插件市场里也能找到</h3>
+        <p>插件都带 <code>dsh-plugin</code> topic，并已投稿 awesome-dsh-plugin（DSH 插件市场的数据源）。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-ico"><img src="assets/img/maid_icon_64.png" alt="鲸鱼娘头像"></div>
+        <h3>提需求</h3>
+        <p>想要什么功能，在对应仓库开 issue 说一声；鲸鱼娘吃白米饭，干活不挑食。</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <img src="assets/img/maid_icon_64.png" alt="鲸鱼娘头像">
+      <div>
+        <b>肥鱼插件铺</b>
+        <p>DeepSeek Harness 插件作品集 · <span id="footCount">…</span></p>
+      </div>
+    </div>
+    <div class="foot-links">
+      <a href="https://github.com/WYR-233" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://wyr233.com" target="_blank" rel="noopener">主站</a>
+      <a href="https://dshmini.wyr233.com" target="_blank" rel="noopener">dsh-mini</a>
+    </div>
+    <p class="foot-legal">© <span id="year">2026</span> WYR-233 · MIT License · <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2026130315号-1</a></p>
+  </div>
+</footer>
+
+<script src="assets/js/app.js"></script>
+</body>
+</html>
