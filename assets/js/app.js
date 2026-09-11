@@ -53,6 +53,14 @@
   const card = (p) => {
     const idx = plugins.indexOf(p);
     const featured = idx === 0;
+    // install / agentInstall 都兼容「字符串」与「字符串数组」两种写法（数组时取第一项）
+    const toCmd = (v) => {
+      if (Array.isArray(v)) return v[0] ? String(v[0]) : '';
+      return v ? String(v) : '';
+    };
+    const termCmd = toCmd(p.install) || `dsh plugin --profile web add github:${p.name}`;
+    const agentCmd = toCmd(p.agentInstall);
+
     return `
     <article class="card plugin-card${featured ? ' plugin-card-featured' : ''}" data-i="${idx}">
       <div class="plugin-head">
@@ -66,10 +74,23 @@
       <p class="plugin-tagline">${esc(p.tagline)}</p>
       <p class="plugin-summary">${esc(p.summary)}</p>
       <div class="plugin-tags">${(p.tags || []).map((t) => `<span class="chip chip-sm">${esc(t)}</span>`).join('')}</div>
-      <div class="cmd-row">
-        <code class="cmd" title="${esc(p.install[0])}">${esc(p.install[0])}</code>
-        <button class="btn btn-ghost btn-sm js-copy" data-copy="${esc(p.install[0])}">复制</button>
+      <div class="cmd-tabs" role="tablist">
+        <button type="button" class="cmd-tab active" data-tab="term">终端命令</button>
+        ${agentCmd ? `<button type="button" class="cmd-tab" data-tab="agent">交给 agent</button>` : ''}
       </div>
+      <div class="cmd-panel active" data-panel="term">
+        <div class="cmd-row">
+          <code class="cmd" title="${esc(termCmd)}">${esc(termCmd)}</code>
+          <button class="btn btn-ghost btn-sm js-copy" data-copy="${esc(termCmd)}" data-label="复制">复制</button>
+        </div>
+      </div>
+      ${agentCmd ? `
+      <div class="cmd-panel" data-panel="agent">
+        <div class="cmd-row cmd-row-agent">
+          <code class="cmd" title="${esc(agentCmd)}">${esc(agentCmd)}</code>
+          <button class="btn btn-ghost btn-sm js-copy" data-copy="${esc(agentCmd)}" data-label="复制给 agent">复制给 agent</button>
+        </div>
+      </div>` : ''}
       <details class="plugin-more">
         <summary>功能细节 / 安装说明</summary>
         <ul class="plugin-features">${(p.features || []).map((f) => `<li>${esc(f)}</li>`).join('')}</ul>
@@ -77,7 +98,6 @@
         ${p.requires ? `<p class="plugin-note">运行要求：${esc(p.requires)}</p>` : ''}
       </details>
       <div class="plugin-links">
-        ${p.website ? `<a class="btn btn-primary btn-sm" href="${esc(p.website)}" target="_blank" rel="noopener">官网 · 插件介绍页</a>` : ''}
         <a class="btn btn-primary btn-sm" href="${esc(p.release)}" target="_blank" rel="noopener"><img class="btn-ico" src="assets/img/icon_github.svg" alt=""> Release 下载</a>
         <a class="btn btn-ghost btn-sm" href="${esc(p.repo)}" target="_blank" rel="noopener">源码仓库</a>
         <a class="btn btn-ghost btn-sm" href="${esc(p.tarball)}" target="_blank" rel="noopener">预构建包 .tgz</a>
@@ -95,23 +115,39 @@
     });
     $('#list').innerHTML = hit.length ? hit.map(card).join('') : '<p class="loading">没有匹配的插件，换个关键词试试。</p>';
     bindCopy();
+    bindTabs();
     loadDownloads();
   };
 
+  const bindTabs = () => {
+    document.querySelectorAll('.cmd-tab').forEach((b) => {
+      b.onclick = () => {
+        const card = b.closest('.plugin-card');
+        if (!card) return;
+        card.querySelectorAll('.cmd-tab').forEach((x) => x.classList.toggle('active', x === b));
+        card.querySelectorAll('.cmd-panel').forEach((panel) => panel.classList.toggle('active', panel.dataset.panel === b.dataset.tab));
+      };
+    });
+  };
+
   const bindCopy = () => {
-    document.querySelectorAll('.js-copy').forEach((b) => b.addEventListener('click', async () => {
-      const text = b.dataset.copy;
-      const done = (ok) => { b.textContent = ok ? '已复制 ✓' : '复制失败'; setTimeout(() => { b.textContent = '复制'; }, 1600); };
-      try {
-        if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(text); done(true); }
-        else {
-          const ta = document.createElement('textarea');
-          ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
-          document.body.appendChild(ta); ta.select();
-          done(document.execCommand('copy')); ta.remove();
-        }
-      } catch (e) { done(false); }
-    }));
+    document.querySelectorAll('.js-copy:not([data-bound])').forEach((b) => {
+      b.dataset.bound = '1';
+      b.addEventListener('click', async () => {
+        const text = b.dataset.copy;
+        const label = b.dataset.label || '复制';
+        const done = (ok) => { b.textContent = ok ? '已复制 ✓' : '复制失败'; setTimeout(() => { b.textContent = label; }, 1600); };
+        try {
+          if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(text); done(true); }
+          else {
+            const ta = document.createElement('textarea');
+            ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+            document.body.appendChild(ta); ta.select();
+            done(document.execCommand('copy')); ta.remove();
+          }
+        } catch (e) { done(false); }
+      });
+    });
   };
 
   /* ── 下载量(GitHub Release,拉不到就安静地隐藏) ── */

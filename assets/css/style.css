@@ -501,3 +501,19 @@ img { max-width: 100%; display: block; }
   * { transition-duration: .01ms !important; animation: none !important; }
   html { scroll-behavior: auto; }
 }
+
+/* ── 安装方式标签栏（终端命令 / 交给 agent，二选一）── */
+.cmd-tabs { display: flex; gap: 6px; margin: 12px 0 8px; }
+.cmd-tab {
+  background: transparent; border: 1px solid var(--line); color: var(--dim);
+  border-radius: 999px; padding: 5px 14px; font-size: 12.5px; cursor: pointer;
+  transition: color .15s, border-color .15s, background .15s;
+}
+.cmd-tab:hover { border-color: var(--line-hi); color: var(--body); }
+.cmd-tab.active {
+  background: var(--chip); border-color: var(--accent2); color: var(--chip-ink); font-weight: 600;
+}
+.cmd-panel { display: none; }
+.cmd-panel.active { display: block; }
+.cmd-row-agent .cmd { color: var(--chip-ink); }
+.cmd-row-agent .cmd { max-height: 120px; overflow: auto; }

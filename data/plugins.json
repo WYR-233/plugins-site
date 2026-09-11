@@ -12,7 +12,7 @@
       "name": "dsh-multi-tts",
       "title": "语音朗读",
       "tagline": "让 DSH 把回复念出来，服务商和音色自己挑",
-      "version": "0.1.3",
+      "version": "0.1.4",
       "updated": "2026-09-11",
       "license": "MIT",
       "repo": "https://github.com/WYR-233/dsh-multi-tts",
@@ -38,14 +38,16 @@
         "任何 OpenAI 兼容的 /audio/speech 端点都能接（改 Base URL 即可）",
         "朗读前自动清洗代码块、链接、文件路径与 Markdown 标记",
         "API Key 支持插件配置 / 环境变量 / $DSH_HOME/.env 多级回落",
-        "零构建：纯 ESM + 手写 React，直接分发源码"
+        "零构建：纯 ESM + 手写 React，直接分发源码",
+        "配置存储加保护：原子写 + 首次变更快照 + 坏文件自愈（2026-09-11 事故后的 0.1.4 修复）"
       ],
       "install": [
         "dsh plugin --profile web add github:WYR-233/dsh-multi-tts"
       ],
       "note": "装完记得把包名加进 profile 的 dsh.profile.bundles；重启 DSH 后设置页出现「语音朗读」。",
       "requires": "DSH 0.1.x · Node ≥ 22 · peer: @deepseek-ai/cordis ^4.0.1",
-      "screenshots": []
+      "screenshots": [],
+      "agentInstall": "帮我安装 DSH（DeepSeek Harness）插件 dsh-multi-tts。请做三件小事：① 运行 `dsh plugin --profile web add github:dsh-multi-tts`；② 确认它已加入 profile 的 dsh.profile.bundles；③ 提醒我点托盘「重启」让插件生效。"
     },
     {
       "id": "dsh-memory-lite",
@@ -78,9 +80,12 @@
         "只读设计：不写卡片、不 commit、不 push；自动化交给你的定时脚本",
         "零运行时依赖、无数据库；唯一状态是一个小 JSON 配置（原子写）"
       ],
-      "install": "dsh plugin --profile web add github:WYR-233/dsh-memory-lite",
+      "install": [
+        "dsh plugin --profile web add github:WYR-233/dsh-memory-lite"
+      ],
       "note": "需要把插件配置的 memoryRoot 指到你的记忆库目录（或设环境变量 DSH_MEMORY_ROOT）；另需要一个支持 `--stdin --top <n>` / `--stats` 约定的检索脚本（默认 tools/memory-find.mjs）。",
-      "requires": "DSH 0.1.5+；Node 22+；一个 markdown 卡片的记忆库目录"
+      "requires": "DSH 0.1.5+；Node 22+；一个 markdown 卡片的记忆库目录",
+      "agentInstall": "帮我安装 DSH（DeepSeek Harness）插件 dsh-memory-lite。请做三件小事：① 运行 `dsh plugin --profile web add github:dsh-memory-lite`；② 确认它已加入 profile 的 dsh.profile.bundles；③ 提醒我点托盘「重启」让插件生效。"
     }
   ]
 }
