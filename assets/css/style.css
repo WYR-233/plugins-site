@@ -502,18 +502,62 @@ img { max-width: 100%; display: block; }
   html { scroll-behavior: auto; }
 }
 
-/* ── 安装方式标签栏（终端命令 / 交给 agent，二选一）── */
-.cmd-tabs { display: flex; gap: 6px; margin: 12px 0 8px; }
-.cmd-tab {
-  background: transparent; border: 1px solid var(--line); color: var(--dim);
-  border-radius: 999px; padding: 5px 14px; font-size: 12.5px; cursor: pointer;
-  transition: color .15s, border-color .15s, background .15s;
+/* ── 安装方式：一个窗口，两枚标签（终端命令 / 交给 agent），点哪显示哪 ── */
+.cmd-box {
+  margin: 12px 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(6, 14, 26, .55);
 }
-.cmd-tab:hover { border-color: var(--line-hi); color: var(--body); }
+.cmd-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, .03);
+}
+.cmd-tab {
+  appearance: none;
+  border: 0;
+  border-right: 1px solid var(--line);
+  background: transparent;
+  color: var(--dim);
+  padding: 9px 18px;
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: color .15s, background .15s;
+}
+.cmd-tab:hover { color: var(--body); background: var(--panel-hover); }
 .cmd-tab.active {
-  background: var(--chip); border-color: var(--accent2); color: var(--chip-ink); font-weight: 600;
+  color: var(--chip-ink);
+  background: var(--chip);
+  font-weight: 600;
+  box-shadow: inset 0 -2px 0 var(--accent2);
 }
 .cmd-panel { display: none; }
 .cmd-panel.active { display: block; }
-.cmd-row-agent .cmd { color: var(--chip-ink); }
-.cmd-row-agent .cmd { max-height: 120px; overflow: auto; }
+.cmd-box .cmd-row {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 12px 14px;
+}
+.cmd-box .cmd { background: transparent; }
+.cmd-box .cmd-row-agent .cmd { color: var(--chip-ink); }
+.cmd-box .cmd-row-agent .cmd { max-height: 130px; overflow: auto; }
+
+@media (max-width: 640px) {
+  .cmd-tab { flex: 1; text-align: center; padding: 9px 10px; }
+  /* 移动端把命令与复制按钮竖排，避免长命令被压成省略号 */
+  .cmd-box .cmd-row { flex-direction: column; align-items: stretch; gap: 8px; }
+  .cmd-box .cmd-row .js-copy { width: 100%; }
+}
+
+/* 命令保持一行 + 省略号（与 extra.css 的 .cmd 一致），不因外层容器被继承成多行 */
+.cmd-box .cmd {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}

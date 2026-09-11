@@ -74,23 +74,25 @@
       <p class="plugin-tagline">${esc(p.tagline)}</p>
       <p class="plugin-summary">${esc(p.summary)}</p>
       <div class="plugin-tags">${(p.tags || []).map((t) => `<span class="chip chip-sm">${esc(t)}</span>`).join('')}</div>
-      <div class="cmd-tabs" role="tablist">
-        <button type="button" class="cmd-tab active" data-tab="term">终端命令</button>
-        ${agentCmd ? `<button type="button" class="cmd-tab" data-tab="agent">交给 agent</button>` : ''}
-      </div>
-      <div class="cmd-panel active" data-panel="term">
-        <div class="cmd-row">
-          <code class="cmd" title="${esc(termCmd)}">${esc(termCmd)}</code>
-          <button class="btn btn-ghost btn-sm js-copy" data-copy="${esc(termCmd)}" data-label="复制">复制</button>
+      <div class="cmd-box">
+        <div class="cmd-tabs" role="tablist">
+          <button type="button" class="cmd-tab active" data-tab="term">终端命令</button>
+          ${agentCmd ? `<button type="button" class="cmd-tab" data-tab="agent">交给 agent</button>` : ''}
         </div>
-      </div>
-      ${agentCmd ? `
-      <div class="cmd-panel" data-panel="agent">
-        <div class="cmd-row cmd-row-agent">
-          <code class="cmd" title="${esc(agentCmd)}">${esc(agentCmd)}</code>
-          <button class="btn btn-ghost btn-sm js-copy" data-copy="${esc(agentCmd)}" data-label="复制给 agent">复制给 agent</button>
+        <div class="cmd-panel active" data-panel="term">
+          <div class="cmd-row">
+            <code class="cmd" title="${esc(termCmd)}">${esc(termCmd)}</code>
+            <button class="btn btn-ghost btn-sm js-copy" data-copy="${esc(termCmd)}" data-label="复制">复制</button>
+          </div>
         </div>
-      </div>` : ''}
+        ${agentCmd ? `
+        <div class="cmd-panel" data-panel="agent">
+          <div class="cmd-row cmd-row-agent">
+            <code class="cmd" title="${esc(agentCmd)}">${esc(agentCmd)}</code>
+            <button class="btn btn-ghost btn-sm js-copy" data-copy="${esc(agentCmd)}" data-label="复制给 agent">复制给 agent</button>
+          </div>
+        </div>` : ''}
+      </div>
       <details class="plugin-more">
         <summary>功能细节 / 安装说明</summary>
         <ul class="plugin-features">${(p.features || []).map((f) => `<li>${esc(f)}</li>`).join('')}</ul>
