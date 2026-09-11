@@ -508,13 +508,13 @@ img { max-width: 100%; display: block; }
   border: 1px solid var(--line);
   border-radius: 12px;
   overflow: hidden;
-  background: rgba(6, 14, 26, .55);
+  background: var(--foot-bg);
 }
 .cmd-tabs {
   display: flex;
   gap: 0;
-  border-bottom: 1px solid var(--line);
-  background: rgba(255, 255, 255, .03);
+  border-bottom: 1px solid var(--panel-line);
+  background: var(--panel);
 }
 .cmd-tab {
   appearance: none;
