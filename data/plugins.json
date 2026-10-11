@@ -2,7 +2,7 @@
   "site": {
     "title": "肥鱼插件铺",
     "tagline": "WYR-233 的 DSH 插件作品集",
-    "description": "鲸鱼娘自研的 DeepSeek Harness 插件合集：语音朗读、以后还会有更多。每个插件都是零构建、开源、MIT。",
+    "description": "鲸鱼娘自研的 DeepSeek Harness 插件合集：语音朗读、记忆库增强、防呆守护。每个插件都是零构建、开源、MIT，同步发布在 GitHub 与 Gitee。",
     "owner": "WYR-233",
     "github": "https://github.com/WYR-233"
   },
@@ -12,8 +12,8 @@
       "name": "dsh-multi-tts",
       "title": "语音朗读",
       "tagline": "让 DSH 把回复念出来，服务商和音色自己挑",
-      "version": "0.1.4",
-      "updated": "2026-09-11",
+      "version": "0.1.5",
+      "updated": "2026-10-11",
       "license": "MIT",
       "repo": "https://github.com/WYR-233/dsh-multi-tts",
       "website": "https://plugins.wyr233.com/#plugins",
@@ -47,15 +47,16 @@
       "note": "装完记得把包名加进 profile 的 dsh.profile.bundles；重启 DSH 后设置页出现「语音朗读」。",
       "requires": "DSH 0.1.x · Node ≥ 22 · peer: @deepseek-ai/cordis ^4.0.1",
       "screenshots": [],
-      "agentInstall": "帮我安装 DSH（DeepSeek Harness）插件 dsh-multi-tts。请做三件小事：① 运行 `dsh plugin --profile web add github:dsh-multi-tts`；② 确认它已加入 profile 的 dsh.profile.bundles；③ 提醒我点托盘「重启」让插件生效。"
+      "agentInstall": "帮我安装 DSH（DeepSeek Harness）插件 dsh-multi-tts。请做三件小事：① 运行 `dsh plugin --profile web add github:dsh-multi-tts`；② 确认它已加入 profile 的 dsh.profile.bundles；③ 提醒我点托盘「重启」让插件生效。",
+      "gitee": "https://gitee.com/wyr233/dsh-multi-tts"
     },
     {
       "id": "dsh-memory-lite",
       "name": "dsh-memory-lite",
       "title": "记忆库增强",
-      "tagline": "让 DSH 会查你的「md 卡片 + Git」长期记忆库",
-      "version": "0.2.0",
-      "updated": "2026-09-11",
+      "tagline": "给 DSH 一个记得住事的「md 卡片 + Git」长期记忆库",
+      "version": "0.4.0",
+      "updated": "2026-10-11",
       "license": "MIT",
       "repo": "https://github.com/WYR-233/dsh-memory-lite",
       "website": "https://plugins.wyr233.com/#plugins",
@@ -67,25 +68,74 @@
         "检索",
         "markdown",
         "Git",
-        "只读",
-        "零依赖"
+        "内置检索",
+        "零依赖",
+        "斜杠命令",
+        "一键建库"
       ],
       "status": "listed",
       "statusText": "已投 awesome-dsh-plugin 收录",
-      "summary": "给一个「纯文件的长期记忆库」加上检索能力：多了 memory_find 工具（中文按相邻双字词匹配、标题/关键词/正文加权）、开场一小段受预算约束的记忆库摘要，以及设置页里的概览 / 健康 / 开关。",
+      "summary": "把一堆 markdown 卡片变成「随取随用」的长期记忆：agent 回答前先检索、开场自动读索引。没有记忆库也不怕——面板里点一下就能建一个带脚手架的新库；检索引擎内置于插件，零依赖即可搜。",
       "features": [
-        "memory_find 检索工具：返回卡片路径 + 命中词 + 原文片段，比逐个翻目录省 token",
-        "开场摘要注入：库在哪、有哪些主题、先检索再猜（默认 ≤900 字符，可调）",
-        "设置页：卡片数 / 体量 / 主题 / 最长卡、最近体检结果、开关与条数上限，中英双语",
-        "只读设计：不写卡片、不 commit、不 push；自动化交给你的定时脚本",
-        "零运行时依赖、无数据库；唯一状态是一个小 JSON 配置（原子写）"
+        "内置检索引擎（零依赖）：中文按相邻双字词、标题 ×6 / 关键词 ×4 / 正文 ×1、同义词组与 idf 加权——不装任何外部脚本也能搜",
+        "一键建库：生成 INDEX.md + 示例主题 + 示例卡 + 使用说明（检测到 git 时顺手 git init）",
+        "面板内选目录 / 换目录 / 校验路径；路径存在本机运行时配置里，Windows 与 Linux 各存各的",
+        "治理仪表盘六块：开场税、规模与趋势、分层健康（超长卡 / 标题重复）、巩固状态、守卫与备份、检索与工具",
+        "六组「滑块 + 数字」阈值，一键体检 / 备份 / 治理扫描",
+        "/memory 斜杠命令：status ｜ search <词> ｜ init [目录] ｜ root <目录>",
+        "自带 memory-library skill：教任何 agent「先搜再猜、何时写卡、控制体量」，不依赖任何预设",
+        "四处发现性入口：侧栏常驻、未配置时的浮动提示、插件页卡片、设置页引导",
+        "只读设计：不写卡片、不 commit、不 push；体检 / 备份按钮只跑你自己配置的脚本"
       ],
       "install": [
         "dsh plugin --profile web add github:WYR-233/dsh-memory-lite"
       ],
-      "note": "需要把插件配置的 memoryRoot 指到你的记忆库目录（或设环境变量 DSH_MEMORY_ROOT）；另需要一个支持 `--stdin --top <n>` / `--stats` 约定的检索脚本（默认 tools/memory-find.mjs）。",
-      "requires": "DSH 0.1.5+；Node 22+；一个 markdown 卡片的记忆库目录",
-      "agentInstall": "帮我安装 DSH（DeepSeek Harness）插件 dsh-memory-lite。请做三件小事：① 运行 `dsh plugin --profile web add github:dsh-memory-lite`；② 确认它已加入 profile 的 dsh.profile.bundles；③ 提醒我点托盘「重启」让插件生效。"
+      "note": "装完把包名加进 profile 的 dsh.profile.bundles 并重启 DSH；打开「设置 → 记忆库」→「一键建一个新库」或「选择已有文件夹」即可开始，**不需要预先准备任何脚本**。",
+      "requires": "DSH 0.2+；Node 22+；可选：你自己的守卫 / 备份脚本（用于体检与备份按钮）",
+      "agentInstall": "帮我安装 DSH（DeepSeek Harness）插件 dsh-memory-lite。请做三件小事：① 运行 `dsh plugin --profile web add github:WYR-233/dsh-memory-lite`；② 确认它已加入 profile 的 dsh.profile.bundles；③ 提醒我重启 DSH。装完后帮我把记忆库建起来：先问我这个库主要记什么，再按回答建主题目录并写第一张卡。",
+      "gitee": "https://gitee.com/wyr233/dsh-memory-lite"
+    },
+    {
+      "id": "dsh-whale-guard",
+      "name": "dsh-whale-guard",
+      "title": "防呆守护",
+      "tagline": "把「自己杀自己」这类低级事故变成工具层面的硬拦截",
+      "version": "0.1.1",
+      "updated": "2026-10-11",
+      "license": "MIT",
+      "repo": "https://github.com/WYR-233/dsh-whale-guard",
+      "gitee": "https://gitee.com/wyr233/dsh-whale-guard",
+      "website": "https://plugins.wyr233.com/#plugins",
+      "release": "https://github.com/WYR-233/dsh-whale-guard/releases/latest",
+      "tarball": "https://github.com/WYR-233/dsh-whale-guard/releases/latest/download/dsh-whale-guard.tgz",
+      "category": "安全 / 防呆",
+      "tags": [
+        "防呆",
+        "安全",
+        "safe_kill",
+        "bash 预检",
+        "规则库",
+        "零依赖"
+      ],
+      "status": "listed",
+      "statusText": "新发布",
+      "summary": "一条命令把自己的进程链全杀掉（pkill 的命令行里就含它要找的模式，于是匹配到自己）——这类事故一天能翻车四次。这个插件把它变成硬拦截：safe_kill 工具自动排除自身与全部祖先，bash 预检在执行前拦下危险写法并给模型一份安全替代。",
+      "features": [
+        "safe_kill 工具：按模式杀进程时自动排除「自己 + 全部祖先进程链」，永远杀不到自己",
+        "guard_status 排障工具：显示当前保护链 PID、规则条数与最近的拦截记录",
+        "bash 命令预检（tools/pre-execute）：拦下 pkill 自匹配、ps|grep|xargs kill 自杀链、sudo -S 抢 heredoc、rm -rf /、kill 1、chmod -R 777 / 等",
+        "拦截时回给模型一份安全替代写法，而不是只说「不行」",
+        "可扩展规则库：内置 9 条，severity 三档（block / warn / hint），规则文件改完即生效不用重启",
+        "设置页（设置 → 防呆）：守卫状态、处置方式（拦截⇄只提醒，点击即时生效）、受保护进程链、规则勾选、最近拦截日志",
+        "零依赖纯 JS：只用 node:child_process 与 node:fs"
+      ],
+      "install": [
+        "dsh plugin --profile web add github:WYR-233/dsh-whale-guard"
+      ],
+      "note": "装完把包名加进 profile 的 dsh.profile.bundles 并重启 DSH；规则文件首次自动生成在 $DSH_HOME/whale-guard-rules.json。",
+      "requires": "DSH 0.2+；Node 20+；零依赖",
+      "screenshots": [],
+      "agentInstall": "帮我安装 DSH（DeepSeek Harness）插件 dsh-whale-guard。请做三件小事：① 运行 `dsh plugin --profile web add github:WYR-233/dsh-whale-guard`；② 确认它已加入 profile 的 dsh.profile.bundles；③ 提醒我重启 DSH。装完后告诉我现在拦下了哪些规则。"
     }
   ]
 }

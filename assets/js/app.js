@@ -102,6 +102,7 @@
       <div class="plugin-links">
         <a class="btn btn-primary btn-sm" href="${esc(p.release)}" target="_blank" rel="noopener"><img class="btn-ico" src="assets/img/icon_github.svg" alt=""> Release 下载</a>
         <a class="btn btn-ghost btn-sm" href="${esc(p.repo)}" target="_blank" rel="noopener">源码仓库</a>
+        ${p.gitee ? `<a class="btn btn-ghost btn-sm" href="${esc(p.gitee)}" target="_blank" rel="noopener"><img class="btn-ico" src="assets/img/icon_gitee.svg" alt=""> Gitee 镜像</a>` : ''}
         <a class="btn btn-ghost btn-sm" href="${esc(p.tarball)}" target="_blank" rel="noopener">预构建包 .tgz</a>
       </div>
     </article>`;

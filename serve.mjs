@@ -1,9 +1,11 @@
 // 本地静态服务器:预览 plugins-site(端口 8099)
 import http from 'node:http'
 import { readFile } from 'node:fs/promises'
-import { extname, join, normalize, relative, isAbsolute } from 'node:path'
+import { dirname, extname, join, normalize, relative, isAbsolute } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-const ROOT = 'G:\\deepseek\\workspace\\plugins-site'
+// 站点根＝本脚本所在目录（跨平台；别再把某一端的路径写死进来）
+const ROOT = process.env.ROOT || dirname(fileURLToPath(import.meta.url))
 const PORT = Number(process.env.PORT || 8099)
 const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.json': 'application/json; charset=utf-8', '.png': 'image/png', '.webp': 'image/webp', '.svg': 'image/svg+xml', '.ico': 'image/x-icon' }
 
