@@ -28,7 +28,7 @@
         "零构建"
       ],
       "status": "listed",
-      "statusText": "已投 awesome-dsh-plugin 收录",
+      "statusText": "已被 awesome-dsh-plugin 收录",
       "summary": "每条助手回复旁多一个 🔊 按钮，点一下念出来；输入框左侧有自动朗读开关；设置页里可选服务商、音色、情绪、语速与模型。",
       "features": [
         "每条回复旁的朗读按钮，再点一次停止",
@@ -74,7 +74,7 @@
         "一键建库"
       ],
       "status": "listed",
-      "statusText": "已投 awesome-dsh-plugin 收录",
+      "statusText": "已被 awesome-dsh-plugin 收录",
       "summary": "把一堆 markdown 卡片变成「随取随用」的长期记忆：agent 回答前先检索、开场自动读索引。没有记忆库也不怕——面板里点一下就能建一个带脚手架的新库；检索引擎内置于插件，零依赖即可搜。",
       "features": [
         "内置检索引擎（零依赖）：中文按相邻双字词、标题 ×6 / 关键词 ×4 / 正文 ×1、同义词组与 idf 加权——不装任何外部脚本也能搜",

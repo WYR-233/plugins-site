@@ -68,7 +68,6 @@
         <div class="plugin-badges">
           <span class="badge badge-v">v${esc(p.version)}</span>
           ${p.status === 'listed' ? `<span class="badge badge-ok">${esc(p.statusText || '已收录')}</span>` : `<span class="badge">${esc(p.statusText || '开发中')}</span>`}
-          <span class="badge" data-dl="${esc(p.id)}">下载 …</span>
         </div>
       </div>
       <p class="plugin-tagline">${esc(p.tagline)}</p>
@@ -119,7 +118,6 @@
     $('#list').innerHTML = hit.length ? hit.map(card).join('') : '<p class="loading">没有匹配的插件，换个关键词试试。</p>';
     bindCopy();
     bindTabs();
-    loadDownloads();
   };
 
   const bindTabs = () => {
@@ -153,23 +151,6 @@
     });
   };
 
-  /* ── 下载量(GitHub Release,拉不到就安静地隐藏) ── */
-  const loadDownloads = async () => {
-    const stars = document.querySelectorAll('[data-dl]');
-    for (const el of stars) {
-      const p = plugins.find((x) => x.id === el.dataset.dl);
-      if (!p || el.dataset.done) continue;
-      el.dataset.done = '1';
-      try {
-        const m = /github\.com\/([^/]+)\/([^/]+)/.exec(p.repo);
-        const r = await fetch(`https://api.github.com/repos/${m[1]}/${m[2]}/releases`, { headers: { accept: 'application/vnd.github+json' } });
-        if (!r.ok) throw new Error(String(r.status));
-        const rels = await r.json();
-        const count = rels.reduce((s, x) => s + (x.assets || []).reduce((a, y) => a + (y.download_count || 0), 0), 0);
-        el.textContent = `下载 ${count}`;
-      } catch (e) { el.remove(); }
-    }
-  };
 
   $('#q')?.addEventListener('input', (e) => { keyword = e.target.value; render(); });
   renderCats();
